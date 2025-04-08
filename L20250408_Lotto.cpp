@@ -113,10 +113,12 @@ void PrintLottoNumber()
 //		PrintLottoNumber();
 //	}
 //}
-void* ReSize(void* ptr, int Size)
+void* CopyAndReSizeArray(void* ptr, int OriginalSize, int NewSize)
 {
+	unsigned char* value = new unsigned char[NewSize];
+	memcpy(value, ptr, OriginalSize);
 	delete[] ptr;
-	return new unsigned char[Size];
+	return value;
 }
 
 int main()
@@ -131,21 +133,17 @@ int main()
 	{
 		DynamicArray[i] = (i + 1) * 3;
 	}
-	if(DynamicArray!= nullptr)
+	if (DynamicArray != nullptr)
 		std::cout << DynamicArray << std::endl;
 
-	DynamicArray = (int*)ReSize(DynamicArray, sizeof(int)*20);
+	DynamicArray = (int*)CopyAndReSizeArray(DynamicArray, sizeof(int)*10,sizeof(int) * 20);
 
-	for (int i = 0; i < size; ++i)
+	for (int i = 10; i < size; ++i)
 	{
 		if (DynamicArray != nullptr)
-		{
-			if (i < 10)
-				DynamicArray[i] = (i + 1) * 3;
-			else
-				DynamicArray[i] = ((i + 1) - 10) * 4;
-		}
+			DynamicArray[i] = (i-9) * 4;
 	}
+
 	if (DynamicArray != nullptr)
 		std::cout << DynamicArray << std::endl;
 
