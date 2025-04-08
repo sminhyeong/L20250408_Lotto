@@ -34,7 +34,7 @@ void Sort()
 	for (int i = 0; i < LOTTO_COUNT; i++)
 	{
 		int temp = 0;
-		for (int j = i+1; j <= LOTTO_COUNT; j++)
+		for (int j = i + 1; j <= LOTTO_COUNT; j++)
 		{
 			if (LottoNumbers[i] > LottoNumbers[j])
 			{
@@ -59,9 +59,16 @@ void PrintLottoNumber()
 
 int main()
 {
-	int GameCount = 5;
+	int GameCount = 0;
 	Initialize();
 	//std::cin >> GameCount;
+	std::cin >> GameCount;
+
+	if (GameCount > 5)
+	{
+		GameCount = 5;
+	}
+
 	for (int cnt = 0; cnt < GameCount; cnt++)
 	{
 		SetLottoNumber(MAX_NUMBER * 1000);
