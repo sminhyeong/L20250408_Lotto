@@ -29,7 +29,7 @@ void SetLottoNumber(int ShuffleCount)
 	}
 }
 
-void Sort()
+void SelectionSort()
 {
 	for (int i = 0; i < LOTTO_COUNT; i++)
 	{
@@ -44,6 +44,23 @@ void Sort()
 			}
 		}
 
+	}
+}
+
+void BubbleSort()
+{
+	for (int i = 0; i < LOTTO_COUNT-1; i++)
+	{
+		int temp = 0;
+		for (int j = 0; j < LOTTO_COUNT - i - 1; j++)
+		{
+			if (LottoNumbers[j] > LottoNumbers[j+1])
+			{
+				temp = LottoNumbers[j];
+				LottoNumbers[j] = LottoNumbers[j+1];
+				LottoNumbers[j+1] = temp;
+			}
+		}
 	}
 }
 
@@ -71,7 +88,7 @@ int main()
 	for (int cnt = 0; cnt < GameCount; cnt++)
 	{
 		SetLottoNumber(MAX_NUMBER * 1000);
-		Sort();
+		SelectionSort();
 		PrintLottoNumber();
 	}
 }
