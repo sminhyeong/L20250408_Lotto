@@ -28,10 +28,9 @@ void SetLottoNumber(int ShuffleCount)
 		LottoNumbers[idx2] = temp;
 	}
 }
-
-void SelectionSort()
+void Sort()
 {
-	for (int i = 0; i < LOTTO_COUNT; i++)
+	for (int i = 0; i < LOTTO_COUNT - 1; i++)
 	{
 		int temp = 0;
 		for (int j = i + 1; j < LOTTO_COUNT; j++)
@@ -43,22 +42,44 @@ void SelectionSort()
 				LottoNumbers[j] = temp;
 			}
 		}
+	}
+
+}
+void SelectionSort()
+{
+	for (int i = 0; i < LOTTO_COUNT; i++)
+	{
+		int min = 999;
+		int idx = 0;
+
+		for (int j = i; j < LOTTO_COUNT; j++)
+		{
+
+			if (min > LottoNumbers[j])
+			{
+				idx = j;
+				min = LottoNumbers[j];
+			}
+		}
+		min = LottoNumbers[i];
+		LottoNumbers[i] = LottoNumbers[idx];
+		LottoNumbers[idx] = min;
 
 	}
 }
 
 void BubbleSort()
 {
-	for (int i = 0; i < LOTTO_COUNT-1; i++)
+	for (int i = 0; i < LOTTO_COUNT - 1; i++)
 	{
 		int temp = 0;
 		for (int j = 0; j < LOTTO_COUNT - i - 1; j++)
 		{
-			if (LottoNumbers[j] > LottoNumbers[j+1])
+			if (LottoNumbers[j] > LottoNumbers[j + 1])
 			{
 				temp = LottoNumbers[j];
-				LottoNumbers[j] = LottoNumbers[j+1];
-				LottoNumbers[j+1] = temp;
+				LottoNumbers[j] = LottoNumbers[j + 1];
+				LottoNumbers[j + 1] = temp;
 			}
 		}
 	}
@@ -74,32 +95,65 @@ void PrintLottoNumber()
 }
 
 
-int main()
+//int main()
+//{
+//	int GameCount = 0;
+//	Initialize();
+//	std::cin >> GameCount;
+//
+//	if (GameCount > 5)
+//	{
+//		GameCount = 5;
+//	}
+//
+//	for (int cnt = 0; cnt < GameCount; cnt++)
+//	{
+//		SetLottoNumber(MAX_NUMBER * 1000);
+//		SelectionSort();
+//		PrintLottoNumber();
+//	}
+//}
+void* ReSize(void* ptr, int Size)
 {
-	int GameCount = 0;
-	Initialize();
-	std::cin >> GameCount;
-
-	if (GameCount > 5)
-	{
-		GameCount = 5;
-	}
-
-	for (int cnt = 0; cnt < GameCount; cnt++)
-	{
-		SetLottoNumber(MAX_NUMBER * 1000);
-		SelectionSort();
-		PrintLottoNumber();
-	}
+	delete[] ptr;
+	return new unsigned char[Size];
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main()
+{
+	int size = 20;
+	int* DynamicArray = new int[10];
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	//int* test = (int*)malloc(sizeof(int) * 10);
+
+
+	for (int i = 0; i < 10; ++i)
+	{
+		DynamicArray[i] = (i + 1) * 3;
+	}
+	if(DynamicArray!= nullptr)
+		std::cout << DynamicArray << std::endl;
+
+	DynamicArray = (int*)ReSize(DynamicArray, sizeof(int)*20);
+
+	for (int i = 0; i < size; ++i)
+	{
+		if (DynamicArray != nullptr)
+		{
+			if (i < 10)
+				DynamicArray[i] = (i + 1) * 3;
+			else
+				DynamicArray[i] = ((i + 1) - 10) * 4;
+		}
+	}
+	if (DynamicArray != nullptr)
+		std::cout << DynamicArray << std::endl;
+
+	for (int i = 0; i < size; i++)
+	{
+		if (DynamicArray != nullptr)
+			printf("%d, ", DynamicArray[i]);
+	}
+
+	delete[] DynamicArray;
+}
